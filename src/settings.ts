@@ -2,6 +2,7 @@ import { PluginSettingTab, type SettingDefinitionItem } from 'obsidian';
 import { sponsorsSettingItems } from './license/github-obsidian';
 import { PRO_UI } from './pro';
 import type LedgerPlugin from './main';
+import { helloSettingItems } from './hello/settings';
 export interface Profile { name: string; folder: string; keys: string; ledger: string }
 export interface LedgerSettings { folder: string; keys: string; ledger: string; profiles: Profile[] }
 export const DEFAULT_SETTINGS: LedgerSettings = { folder: 'Notes', keys: 'status, due', ledger: 'Property history.md', profiles: [] };
@@ -17,6 +18,11 @@ export function normalizeSettings(saved: unknown): LedgerSettings {
 export class LedgerSettingTab extends PluginSettingTab {
 	constructor(app: ConstructorParameters<typeof PluginSettingTab>[0], public plugin: LedgerPlugin) { super(app, plugin); }
 	getSettingDefinitions(): SettingDefinitionItem[] {
+		// The product rows, then the "More from NoteMods" card (packages/hello).
+		return [...this.productSettingDefinitions(), ...helloSettingItems()];
+	}
+
+	productSettingDefinitions(): SettingDefinitionItem[] {
 		return [
 			{ name: 'Watch folder and exact keys', desc: `${this.plugin.settings.folder || 'Vault root'} • ${this.plugin.settings.keys}`, render: setting => { setting.addButton(b => b.setButtonText('Set watch').onClick(() => this.plugin.openWatch())); } },
 			{ name: 'Local ledger', desc: this.plugin.settings.ledger + '. Values can contain private data. This file is ordinary vault data.' },

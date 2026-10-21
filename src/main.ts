@@ -5,6 +5,8 @@ import { Observer, SerialWriter, HEADER, csv, filterRecords, keyList, movedPath,
 import { SPONSORS, bindPro, isPro, resetPro } from './pro';
 import { DEFAULT_SETTINGS, LedgerSettingTab, normalizeSettings, type LedgerSettings } from './settings';
 import { HistoryModal, WatchModal } from './ui';
+import { setupHello } from './hello/index';
+import WHATS_NEW from './whats-new.json';
 
 export default class PropertyChangeLedgerPlugin extends Plugin {
 	settings: LedgerSettings = normalizeSettings(DEFAULT_SETTINGS);
@@ -20,6 +22,8 @@ export default class PropertyChangeLedgerPlugin extends Plugin {
 	openHistory(): void { this.closeModal(); this.modal = new HistoryModal(this); this.modal.open(); }
 	watch(): Watch { return { folder: this.settings.folder, keys: keyList(this.settings.keys), ledger: this.settings.ledger }; }
 	async onload(): Promise<void> {
+		// First: "What's new" reads its state before the settings load (packages/hello). It does not wait.
+		setupHello(this, WHATS_NEW);
 		await this.loadSettings();
 		this.pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS, this);
 		this.pro.init(); bindPro(this.pro);

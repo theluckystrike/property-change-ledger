@@ -2,7 +2,7 @@
 
 Property Change Ledger records observed changes to selected note properties in a local Markdown history file. Use it when you need to review a project status, a due date, or an ordered list after an edit. You choose one folder and the exact property keys. The plugin compares cached values while this device has the vault open.
 
-Initial values form a baseline. They do not become change records. This keeps an existing folder from producing a history entry for its current contents when you open the vault. Core recording, the ledger, and recent history filters are free. Pro adds named watch profiles, CSV export, and status change counts.
+Initial values form a baseline. They do not become change records. Core recording, the ledger, and recent history filters are free. Pro adds named watch profiles, CSV export, and status change counts.
 
 ## Features
 
@@ -50,7 +50,7 @@ Export the current filtered history to a new CSV file at the vault root. The exp
 
 ### Status change counts by note (Pro)
 
-The recent history window shows counts from the filtered records for the exact key `status`. These are observed change counts, not totals of completed tasks or time spent in a state. A change to `due` does not increase this count. Changing the filters changes the set used for the count.
+The recent history window shows counts from the filtered records for the exact key `status`. These are observed change counts, not totals of completed tasks or time spent in a state. Changing the filters changes the set used for the count.
 
 <img src="https://raw.githubusercontent.com/theluckystrike/property-change-ledger/HEAD/docs/counts.png" alt="Status change counts for two sample projects" width="720">
 
@@ -68,6 +68,8 @@ For example, change `status: draft` to `status: done`. The next observed cache c
 
 ## Settings
 
+After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
+
 The plugin settings show the applied folder, keys, ledger path, pending write count, and GitHub Sponsors controls. Set watch opens the configuration form. Ledger paths must end in `.md` and stay inside the vault. Parent folders are created when a write needs them. An existing file must have the ledger heading before the plugin accepts it as history.
 
 Use Retry pending ledger writes after you correct a storage error. Keep the app open until pending writes finish. Pending records can be lost when the plugin unloads or the app closes. The ledger has no automatic retention limit. Back up, archive, or remove old records with the normal vault tools. A damaged JSON block is skipped when recent history reads the file.
@@ -78,9 +80,9 @@ Can this recover edits made while the app was closed? No. Reopening the vault es
 
 Can I use the same ledger on two devices? Version 1 records observations on the current device. Two devices can write duplicate records or conflicting file changes. Use a separate ledger path per device when you need to keep their observations distinct. Sync conflict resolution is outside this plugin.
 
-Where are private values stored? Property values and note paths are ordinary vault data in the ledger and exported CSV files. Your backup or sync service can copy them under its own settings. The plugin's core history functions do not send that data to a network host.
+Where are private values stored? Property values and note paths are ordinary vault data in the ledger and exported CSV files. Your backup or sync service can copy them under its own settings.
 
-What was not tested? Physical Android and iOS devices, simultaneous device writes, sync conflict resolution, very large ledgers, interrupted disk writes, and live payment or account sign-in were not tested. Linux CI was not run in this session. Automated Pro checks use a test response from the GitHub Sponsors transport. Desktop app tests cover the supported public version pair stated in the test evidence.
+What was not tested? Physical Android and iOS devices, simultaneous device writes, sync conflict resolution, very large ledgers, interrupted disk writes, and live payment or account sign-in were not tested. Automated Pro checks use a test response from the GitHub Sponsors transport. Desktop app tests cover the supported public version pair stated in the test evidence.
 
 ## Payment, account and network
 
