@@ -1,5 +1,6 @@
 {
 	"name": "property-change-ledger",
+	"repository": {"type": "git", "url": "theluckystrike/property-change-ledger.git"},
 	"version": "1.1.0",
 	"private": true,
 	"description": "Record observed changes to selected note properties in a local history file.",
