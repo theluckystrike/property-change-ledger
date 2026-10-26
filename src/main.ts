@@ -2,7 +2,7 @@ import { Modal, Notice, Plugin, TFile, normalizePath } from 'obsidian';
 import type { SponsorsManager } from './license/index';
 import { createGitHubSponsors } from './license/github-obsidian';
 import { Observer, SerialWriter, HEADER, csv, filterRecords, keyList, movedPath, readRecords, recordBlock, type Change, type Watch } from './ledger';
-import { SPONSORS, bindPro, isPro, resetPro } from './pro';
+import { SPONSORS, bindPro, isPro, resetPro, proNotice } from './pro';
 import { DEFAULT_SETTINGS, LedgerSettingTab, normalizeSettings, type LedgerSettings } from './settings';
 import { HistoryModal, WatchModal } from './ui';
 import { setupHello } from './hello/index';
@@ -107,7 +107,7 @@ export default class PropertyChangeLedgerPlugin extends Plugin {
 		if (file) await this.app.workspace.getLeaf('tab').openFile(file);
 		else new Notice('No ledger yet. Change a watched property after the baseline is set.');
 	}
-	needsPro(): boolean { if (isPro()) return false; new Notice('This is a pro feature. Sponsor on GitHub, then sign in from the plugin settings.'); return true; }
+	needsPro(): boolean { if (isPro()) return false; proNotice('This is a pro feature.'); return true; }
 	async saveProfile(name: string): Promise<boolean> {
 		if (this.needsPro()) return false;
 		if (!name.trim()) throw new Error('Set a profile name.');
